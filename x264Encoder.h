@@ -29,7 +29,7 @@
 
 #include <iostream>
 #include <concurrent_queue.h>
-#include <opencv2/opencv.hpp>
+//#include <opencv2/opencv.hpp>
 #include <queue>
 #include <stdint.h>
 
@@ -48,7 +48,7 @@ class x264Encoder
  public:
   void initilize();
   void unInitilize();
-  void encodeFrame(cv::Mat& image);
+  void encodeFrame(uint8_t * yuv_frame);
   bool isNalsAvailableInOutputQueue();
   x264_nal_t getNalUnit();
  private:

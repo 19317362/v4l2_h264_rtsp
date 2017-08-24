@@ -257,25 +257,58 @@ void camera_capturing_stop(struct camera *cam)
 	return;
 }
 
-static void camera_encode_frame(struct camera *cam, uint8_t * yuv_frame,
-								size_t yuv_length)
-{
-	int h264_length = 0;
+// static void camera_encode_frame(struct camera *cam, uint8_t * yuv_frame,
+// 								size_t yuv_length)
+// {
+// 	int h264_length = 0;
 
-	//这里有一个问题，通过测试发现前6帧都是0，所以这里我跳过了为0的帧
-	if (yuv_frame[0] == '\0')
-		return;
+// 	//这里有一个问题，通过测试发现前6帧都是0，所以这里我跳过了为0的帧
+// 	if (yuv_frame[0] == '\0')
+// 		return;
 
-	h264_length = h264_compress_frame(&cam->en, -1, yuv_frame, cam->h264_buf);
-	if (h264_length > 0) {
-		//写h264文件
-		fwrite(cam->h264_buf, h264_length, 1, cam->h264_fp);
-	}
+// 	h264_length = h264_compress_frame(&cam->en, -1, yuv_frame, cam->h264_buf);
+// 	if (h264_length > 0) {
+// 		//写h264文件
+// 		fwrite(cam->h264_buf, h264_length, 1, cam->h264_fp);
+// 	}
 
-	return;
-}
+// 	return;
+// }
 
-int read_and_encode_frame(struct camera *cam)
+// int read_and_encode_frame(struct camera *cam)
+// {
+// 	struct v4l2_buffer buf;
+
+// 	memset(&buf, 0, sizeof(struct v4l2_buffer));
+
+// 	buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+// 	buf.memory = V4L2_MEMORY_MMAP;
+
+// 	//this operator below will change buf.index(0 <= buf.index <= 3)
+// 	if (camera_ioctl(cam->fd, VIDIOC_DQBUF, &buf) < 0) {
+// 		switch (errno) {
+// 		case EAGAIN:
+// 			return 0;
+// 		case EIO:
+// 			/* Could ignore EIO, see spec. */
+// 			/* fall through */
+// 		default:
+// 			printf("VIDIOC_DQBUF\n");
+// 			return -1;
+// 		}
+// 	}
+
+// 	camera_encode_frame(cam, cam->buffers[buf.index].start, buf.length);
+
+// 	if (camera_ioctl(cam->fd, VIDIOC_QBUF, &buf) < 0) {
+// 		printf("VIDIOC_DQBUF\n");
+// 		return -1;
+// 	}
+
+// 	return 0;
+// }
+
+int read_frame(struct camera *cam,__u32 bufIndex)
 {
 	struct v4l2_buffer buf;
 
@@ -297,41 +330,8 @@ int read_and_encode_frame(struct camera *cam)
 			return -1;
 		}
 	}
-
-	camera_encode_frame(cam, cam->buffers[buf.index].start, buf.length);
-
-	if (camera_ioctl(cam->fd, VIDIOC_QBUF, &buf) < 0) {
-		printf("VIDIOC_DQBUF\n");
-		return -1;
-	}
-
-	return 0;
-}
-
-int read_frame(struct camera *cam)
-{
-	struct v4l2_buffer buf;
-
-	memset(&buf, 0, sizeof(struct v4l2_buffer));
-
-	buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-	buf.memory = V4L2_MEMORY_MMAP;
-
-	//this operator below will change buf.index(0 <= buf.index <= 3)
-	if (camera_ioctl(cam->fd, VIDIOC_DQBUF, &buf) < 0) {
-		switch (errno) {
-		case EAGAIN:
-			return 0;
-		case EIO:
-			/* Could ignore EIO, see spec. */
-			/* fall through */
-		default:
-			printf("VIDIOC_DQBUF\n");
-			return -1;
-		}
-	}
-
-	camera_encode_frame(cam, cam->buffers[buf.index].start, buf.length);
+    bufIndex=buf.index;
+	//camera_encode_frame(cam, cam->buffers[buf.index].start, buf.length);
 
 	if (camera_ioctl(cam->fd, VIDIOC_QBUF, &buf) < 0) {
 		printf("VIDIOC_DQBUF\n");

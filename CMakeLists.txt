@@ -10,6 +10,7 @@ message(STATUS ${OpenCV_INCLUDE_DIRS})
 #for the required libraries
 include(${CMAKE_SOURCE_DIR}/FindPaths.cmake)
 
+
 set(pthread_LIBRARIES /lib/x86_64-linux-gnu/libpthread.so.0)
 set(avutil_LIBRARIES /usr/lib/x86_64-linux-gnu/libavutil-ffmpeg.so.54)
 set(dl_LIBRARIES /lib/x86_64-linux-gnu/libdl.so.2)
@@ -24,6 +25,7 @@ include_directories(
   ${x264_INCLUDE_DIR}
   ${tbb_INCLUDE_DIR}
   ${swscale_INCLUDE_DIR}
+  ${CMAKE_SOURCE_DIR}
   )
 
 #Set the link directoreis for the required libraries
@@ -36,11 +38,12 @@ link_directories(
   ${x264_LIBRARY_DIR}
   ${tbb_LIBRARY_DIR}
   ${swscale_LIBRARY_DIR}
-  
+  ${CMAKE_SOURCE_DIR/build}
   )
 
 #Create executable
 add_executable(H264StreamerExample
+  capture.c
   x264Encoder.cxx
   H264LiveServerMediaSession.cxx
   LiveSourceWithx264.cxx

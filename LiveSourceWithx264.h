@@ -35,8 +35,6 @@
 #include <errno.h>
 #include <malloc.h>
 
-#include "capture.h"
-
 class LiveSourceWithx264:public FramedSource
 {
  public:
@@ -50,14 +48,17 @@ class LiveSourceWithx264:public FramedSource
   static void deliverFrame0(void* clientData);
   void deliverFrame();
   void encodeNewFrame();
+
   static unsigned referenceCount;
   std::queue<x264_nal_t> nalQueue;
   timeval currentTime;
   // videoCaptureDevice is my BGR data source. You can have according to your need
   struct camera *cam = NULL;
+  unsigned int bufIndex=0;
   //uint8_t * yuv_frame
   // Remember the x264 encoder wrapper we wrote in the start
   x264Encoder *encoder;
 };
+
 
 #endif

@@ -21,7 +21,7 @@
 
 #include <queue>
 #include "x264Encoder.h"
-#include "opencv2/opencv.hpp"
+//#include "opencv2/opencv.hpp"
 
 class LiveSourceWithx264:public FramedSource
 {
@@ -40,8 +40,8 @@ class LiveSourceWithx264:public FramedSource
   std::queue<x264_nal_t> nalQueue;
   timeval currentTime;
   // videoCaptureDevice is my BGR data source. You can have according to your need
-  cv::VideoCapture videoCaptureDevice;
-  cv::Mat rawImage;
+  //cv::VideoCapture videoCaptureDevice;
+  //cv::Mat rawImage;
   // Remember the x264 encoder wrapper we wrote in the start
   x264Encoder *encoder;
 };

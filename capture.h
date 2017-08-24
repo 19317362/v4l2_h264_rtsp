@@ -10,7 +10,7 @@
 
 
 struct buffer {
-	void *start;
+	uint8_t *start;
 	size_t length;
 };
 
@@ -29,5 +29,14 @@ struct camera {
 	struct v4l2_crop crop;
 
 };
+
+
+int camera_open(struct camera *cam);
+void camera_init(struct camera *cam);
+void camera_capturing_start(struct camera *cam);
+void camera_capturing_stop(struct camera *cam);
+void camera_uninit(struct camera *cam);
+int camera_close(struct camera *cam);
+int read_frame(struct camera *cam,__u32 bufIndex);
 
 #endif

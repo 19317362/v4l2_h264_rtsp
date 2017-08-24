@@ -27,7 +27,10 @@
 #include <pthread.h>
 #include <errno.h>
 #include <malloc.h>
-#include "capture.h"
+extern "C"{
+  #include "capture.h"
+  }
+
 
 LiveSourceWithx264* LiveSourceWithx264::createNew(UsageEnvironment& env)
 {
@@ -52,7 +55,7 @@ LiveSourceWithx264::LiveSourceWithx264(UsageEnvironment& env):FramedSource(env)
 		exit(1);
 	}
 	memset(cam, 0, sizeof(struct camera));
-	cam->device_name = "/dev/video1";
+	cam->device_name = "/dev/video0";
 	cam->buffers = NULL;
 	cam->width = 640;
 	cam->height = 480;
@@ -89,15 +92,15 @@ void LiveSourceWithx264::encodeNewFrame()
   cam->buffers=NULL;
   while(cam->buffers == NULL)
     {
-        if (read_frame(cam) < 0) {
+        if (read_frame(cam,bufIndex) < 0) {
         fprintf(stderr, "read_fram fail in thread\n");
         //break;
         }
       //cv::waitKey(100);
     }
   // Got new image to stream
-  assert(cam->buffers[buf.index].start!= NULL);
-  encoder->encodeFrame(cam->buffers[buf.index].start);
+  assert(cam->buffers!= NULL);
+  encoder->encodeFrame(cam->buffers[bufIndex].start);
   // Take all nals from encoder output queue to our input queue
   while(encoder->isNalsAvailableInOutputQueue() == true)
     {
