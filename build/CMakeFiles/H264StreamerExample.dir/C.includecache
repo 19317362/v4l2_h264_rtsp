@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/capture.c
+/home/fsb/CTI_project/v4l2_h264_rtsp/capture.c
 sys/types.h
 -
 sys/stat.h
@@ -40,9 +40,9 @@ asm/types.h
 linux/videodev2.h
 -
 capture.h
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/capture.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/capture.h
 
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/capture.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/capture.h
 stdint.h
 -
 stdio.h
@@ -79,10 +79,6 @@ libavutil/rational.h
 /usr/include/x86_64-linux-gnu/libavcodec/libavutil/rational.h
 version.h
 /usr/include/x86_64-linux-gnu/libavcodec/version.h
-old_codec_ids.h
-/usr/include/x86_64-linux-gnu/libavcodec/old_codec_ids.h
-
-/usr/include/x86_64-linux-gnu/libavcodec/old_codec_ids.h
 
 /usr/include/x86_64-linux-gnu/libavcodec/version.h
 libavutil/version.h

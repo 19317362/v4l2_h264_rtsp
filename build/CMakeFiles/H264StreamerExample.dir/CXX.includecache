@@ -6,21 +6,21 @@
 
 #IncludeRegexTransform: 
 
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/H264LiveServerMediaSession.cxx
+/home/fsb/CTI_project/v4l2_h264_rtsp/H264LiveServerMediaSession.cxx
 H264LiveServerMediaSession.h
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/H264LiveServerMediaSession.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/H264LiveServerMediaSession.h
 
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/H264LiveServerMediaSession.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/H264LiveServerMediaSession.h
 liveMedia.hh
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/liveMedia.hh
+/home/fsb/CTI_project/v4l2_h264_rtsp/liveMedia.hh
 OnDemandServerMediaSubsession.hh
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/OnDemandServerMediaSubsession.hh
+/home/fsb/CTI_project/v4l2_h264_rtsp/OnDemandServerMediaSubsession.hh
 LiveSourceWithx264.h
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/LiveSourceWithx264.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/LiveSourceWithx264.h
 
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/LiveSourceWithx264.cxx
+/home/fsb/CTI_project/v4l2_h264_rtsp/LiveSourceWithx264.cxx
 LiveSourceWithx264.h
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/LiveSourceWithx264.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/LiveSourceWithx264.h
 stdio.h
 -
 stdlib.h
@@ -34,11 +34,11 @@ errno.h
 malloc.h
 -
 capture.h
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/capture.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/capture.h
 
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/LiveSourceWithx264.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/LiveSourceWithx264.h
 x264Encoder.h
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/x264Encoder.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/x264Encoder.h
 queue
 -
 opencv2/opencv.hpp
@@ -58,7 +58,7 @@ errno.h
 malloc.h
 -
 
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/capture.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/capture.h
 stdint.h
 -
 stdio.h
@@ -68,7 +68,7 @@ avcodec.h
 linux/videodev2.h
 -
 
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/main.cxx
+/home/fsb/CTI_project/v4l2_h264_rtsp/main.cxx
 iostream
 -
 liveMedia.hh
@@ -78,13 +78,13 @@ BasicUsageEnvironment.hh
 GroupsockHelper.hh
 -
 H264LiveServerMediaSession.h
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/H264LiveServerMediaSession.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/H264LiveServerMediaSession.h
 x264Encoder.h
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/x264Encoder.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/x264Encoder.h
 
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/x264Encoder.cxx
+/home/fsb/CTI_project/v4l2_h264_rtsp/x264Encoder.cxx
 x264Encoder.h
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/x264Encoder.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/x264Encoder.h
 swscale.h
 -
 sys/types.h
@@ -120,7 +120,7 @@ asm/types.h
 linux/videodev2.h
 -
 
-/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/x264Encoder.h
+/home/fsb/CTI_project/v4l2_h264_rtsp/x264Encoder.h
 iostream
 -
 concurrent_queue.h
@@ -130,6 +130,8 @@ queue
 stdint.h
 -
 x264.h
+-
+avcodec.h
 -
 
 /opt/ros/kinetic/include/opencv-3.2.0-dev/opencv/cxcore.h
@@ -501,8 +503,6 @@ kdtree_index.h
 /opt/ros/kinetic/include/opencv-3.2.0-dev/opencv2/flann/kdtree_index.h
 kmeans_index.h
 /opt/ros/kinetic/include/opencv-3.2.0-dev/opencv2/flann/kmeans_index.h
-
-/opt/ros/kinetic/include/opencv-3.2.0-dev/opencv2/flann/config.h
 
 /opt/ros/kinetic/include/opencv-3.2.0-dev/opencv2/flann/defines.h
 config.h
@@ -1731,10 +1731,6 @@ libavutil/rational.h
 /usr/include/x86_64-linux-gnu/libavcodec/libavutil/rational.h
 version.h
 /usr/include/x86_64-linux-gnu/libavcodec/version.h
-old_codec_ids.h
-/usr/include/x86_64-linux-gnu/libavcodec/old_codec_ids.h
-
-/usr/include/x86_64-linux-gnu/libavcodec/old_codec_ids.h
 
 /usr/include/x86_64-linux-gnu/libavcodec/version.h
 libavutil/version.h

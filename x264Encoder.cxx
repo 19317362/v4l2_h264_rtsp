@@ -67,7 +67,7 @@ void x264Encoder::initilize()
   parameters.i_keyint_max = 25;
   parameters.b_intra_refresh = 1;
   parameters.rc.i_rc_method = X264_RC_CRF;
-  parameters.rc.i_vbv_buffer_size = 1000000;
+  parameters.rc.i_vbv_buffer_size = 240000;//1000000
   parameters.rc.i_vbv_max_bitrate = 90000;
   parameters.rc.f_rf_constant = 25;
   parameters.rc.f_rf_constant_max = 35;
@@ -91,16 +91,16 @@ void x264Encoder::unInitilize()
   sws_freeContext(convertContext);
 }
 
-void x264Encoder::encodeFrame(AVPicture &pPictureSrc)
+void x264Encoder::encodeFrame(AVPicture *pPictureSrc)
 {
   AVPicture pPictureDes;
-  avpicture_alloc(&pPictureDes, PIX_FMT_YUV420P, parameters.i_width,  parameters.i_height); 
-  sws_scale(convertContext, pPictureSrc.data,  pPictureSrc.linesize, 0, parameters.i_height, pPictureDes.data, pPictureDes.linesize);
+  avpicture_alloc(&pPictureDes,AV_PIX_FMT_YUV420P, parameters.i_width,  parameters.i_height); 
+  sws_scale(convertContext, pPictureSrc->data,  pPictureSrc->linesize, 0, parameters.i_height, pPictureDes.data, pPictureDes.linesize);
   picture_in.img.plane[0] = pPictureDes.data[0];  
   picture_in.img.plane[1] = pPictureDes.data[1];  
   picture_in.img.plane[2] = pPictureDes.data[2]; 
-  avpicture_free(&pPictureDes)
-  x264_nal_t* nals ;
+  avpicture_free(&pPictureDes);
+  x264_nal_t* nals;
   int i_nals = 0;
   int frameSize = -1;
 

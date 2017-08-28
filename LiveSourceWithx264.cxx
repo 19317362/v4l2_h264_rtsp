@@ -61,8 +61,11 @@ LiveSourceWithx264::LiveSourceWithx264(UsageEnvironment& env):FramedSource(env)
 	cam->height = 480;
 	cam->display_depth = 5;		/* RGB24 */
   camera_open(cam);
-	camera_init(cam);
-	camera_capturing_start(cam);
+  //printf("gan1\n");
+  camera_init(cam);
+  //printf("gan2\n");
+  camera_capturing_start(cam);
+  //printf("gan3\n");
   //--------------------------------------------------------
   encoder = new x264Encoder();
   encoder->initilize();
@@ -89,18 +92,22 @@ LiveSourceWithx264::~LiveSourceWithx264(void)
 
 void LiveSourceWithx264::encodeNewFrame()
 {
-  AVPicture pictureSrc=NULL;
-  while(pictureSrc== NULL)
+  AVPicture pictureSrc;
+  pictureSrc.data[0]=NULL;
+  //printf("made\n");
+  while(pictureSrc.data[0]== NULL)
     {
-        if (read_frame(pictureSrc) < 0) {
+        if (read_frame(&pictureSrc,cam) < 0) {
         fprintf(stderr, "read_fram fail in thread\n");
         //break;
         }
       //cv::waitKey(100);
     }
   // Got new image to stream
-  assert(pictureSrc!= NULL);
-  encoder->encodeFrame(pictureSrc);
+  assert(pictureSrc.data!= NULL);
+  //printf("haha1\n");
+  encoder->encodeFrame(&pictureSrc);
+  //printf("haha2\n");
   // Take all nals from encoder output queue to our input queue
   while(encoder->isNalsAvailableInOutputQueue() == true)
     {

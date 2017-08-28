@@ -33,8 +33,11 @@
 #include <queue>
 #include <stdint.h>
 
+
+
 extern "C" {
 #include <x264.h>
+#include <avcodec.h>
 }
 
 struct SwsContext;
@@ -48,7 +51,7 @@ class x264Encoder
  public:
   void initilize();
   void unInitilize();
-  void encodeFrame(AVPicture &pPictureSrc);
+  void encodeFrame(AVPicture *pPictureSrc);
   bool isNalsAvailableInOutputQueue();
   x264_nal_t getNalUnit();
  private:

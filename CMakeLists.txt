@@ -56,10 +56,12 @@ add_executable(H264StreamerExample
 
 #Link libraries
 target_link_libraries(H264StreamerExample
+  ${libavcodec_LIBRARIES}
   ${OpenCV_LIBRARIES}
   ${pthread_LIBRARIES}
   ${avutil_LIBRARIES}
   ${dl_LIBRARIES}
+  avcodec
   x264
   swscale
   BasicUsageEnvironment
