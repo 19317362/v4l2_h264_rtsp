@@ -24,7 +24,7 @@
 #include <BasicUsageEnvironment.hh>
 #include <GroupsockHelper.hh>
 #include "H264LiveServerMediaSession.h"
-#include "opencv2/opencv.hpp"
+//#include "opencv2/opencv.hpp"
 #include "x264Encoder.h"
 
 int main(int argc, char* argv[])

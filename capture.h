@@ -6,6 +6,8 @@
 #include <stdio.h>
 
 
+#include <avcodec.h>
+
 #include <linux/videodev2.h>
 
 
@@ -30,13 +32,13 @@ struct camera {
 
 };
 
-
+AVPicture pPictureSrc;
 int camera_open(struct camera *cam);
 void camera_init(struct camera *cam);
 void camera_capturing_start(struct camera *cam);
 void camera_capturing_stop(struct camera *cam);
 void camera_uninit(struct camera *cam);
 int camera_close(struct camera *cam);
-int read_frame(struct camera *cam,__u32 bufIndex);
+int read_frame(AVPicture &pPictureSrc);
 
 #endif

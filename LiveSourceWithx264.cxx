@@ -89,18 +89,18 @@ LiveSourceWithx264::~LiveSourceWithx264(void)
 
 void LiveSourceWithx264::encodeNewFrame()
 {
-  cam->buffers=NULL;
-  while(cam->buffers == NULL)
+  AVPicture pictureSrc=NULL;
+  while(pictureSrc== NULL)
     {
-        if (read_frame(cam,bufIndex) < 0) {
+        if (read_frame(pictureSrc) < 0) {
         fprintf(stderr, "read_fram fail in thread\n");
         //break;
         }
       //cv::waitKey(100);
     }
   // Got new image to stream
-  assert(cam->buffers!= NULL);
-  encoder->encodeFrame(cam->buffers[bufIndex].start);
+  assert(pictureSrc!= NULL);
+  encoder->encodeFrame(pictureSrc);
   // Take all nals from encoder output queue to our input queue
   while(encoder->isNalsAvailableInOutputQueue() == true)
     {

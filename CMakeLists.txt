@@ -12,6 +12,8 @@ include(${CMAKE_SOURCE_DIR}/FindPaths.cmake)
 
 
 set(pthread_LIBRARIES /lib/x86_64-linux-gnu/libpthread.so.0)
+set(libavcodec_INCLUDE_DIRS /usr/include/x86_64-linux-gnu/libavcodec)
+set(libavcodec_LIBRARIES /usr/include/x86_64-linux-gnu)
 set(avutil_LIBRARIES /usr/lib/x86_64-linux-gnu/libavutil-ffmpeg.so.54)
 set(dl_LIBRARIES /lib/x86_64-linux-gnu/libdl.so.2)
 
@@ -25,6 +27,7 @@ include_directories(
   ${x264_INCLUDE_DIR}
   ${tbb_INCLUDE_DIR}
   ${swscale_INCLUDE_DIR}
+  ${libavcodec_INCLUDE_DIRS}
   ${CMAKE_SOURCE_DIR}
   )
 
@@ -38,6 +41,7 @@ link_directories(
   ${x264_LIBRARY_DIR}
   ${tbb_LIBRARY_DIR}
   ${swscale_LIBRARY_DIR}
+  ${libavcodec_LIBRARIES}
   ${CMAKE_SOURCE_DIR/build}
   )
 

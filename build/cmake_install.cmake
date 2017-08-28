@@ -1,4 +1,4 @@
-# Install script for directory: /home/fsb/CTI_project/stream_webcam/v4l2_h264_rtsp
+# Install script for directory: /home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/fsb/CTI_project/stream_webcam/v4l2_h264_rtsp/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/fengsibo/my_project/stream_webcam/v4l2_h264_rtsp/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

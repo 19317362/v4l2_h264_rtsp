@@ -308,10 +308,10 @@ void camera_capturing_stop(struct camera *cam)
 // 	return 0;
 // }
 
-int read_frame(struct camera *cam,__u32 bufIndex)
-{
+int read_frame(AVPicture &pPictureSrc)
+{ 
 	struct v4l2_buffer buf;
-
+     
 	memset(&buf, 0, sizeof(struct v4l2_buffer));
 
 	buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
@@ -330,7 +330,15 @@ int read_frame(struct camera *cam,__u32 bufIndex)
 			return -1;
 		}
 	}
-    bufIndex=buf.index;
+	pPictureSrc.data[0] = (unsigned char *)cam->buffers[buf.index].start;  
+    pPictureSrc.data[1] = pPictureSrc.data[2] = pPictureSrc.data[3] = NULL;  
+	pPictureSrc.linesize[0] = fmt.fmt.pix.bytesperline;
+	int i = 0;  
+    for (i = 1; i < 8; i++)  
+    {  
+        pPictureSrc.linesize[i] = 0;  
+    }  
+
 	//camera_encode_frame(cam, cam->buffers[buf.index].start, buf.length);
 
 	if (camera_ioctl(cam->fd, VIDIOC_QBUF, &buf) < 0) {

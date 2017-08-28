@@ -48,7 +48,7 @@ class x264Encoder
  public:
   void initilize();
   void unInitilize();
-  void encodeFrame(uint8_t * yuv_frame);
+  void encodeFrame(AVPicture &pPictureSrc);
   bool isNalsAvailableInOutputQueue();
   x264_nal_t getNalUnit();
  private:

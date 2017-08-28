@@ -40,7 +40,6 @@ extern "C"{
 #include <asm/types.h>			/* for videodev2.h */
 #include <linux/videodev2.h>
 
-#include "capture.h"
 }
 
 
@@ -76,14 +75,14 @@ void x264Encoder::initilize()
   // the following two value you should keep 1
   parameters.b_repeat_headers = 1;    // to get header before every I-Frame
   parameters.b_annexb = 1; // put start code in front of nal. we will remove start code later
-  x264_param_apply_profile(&parameters, "high422");//baseline, main, high, high10, high422, high444
+  x264_param_apply_profile(&parameters, "baseline");//baseline, main, high, high10, high422, high444
 
   encoder = x264_encoder_open(&parameters);
-  x264_picture_alloc(&picture_in, X264_CSP_YUYV, parameters.i_width, parameters.i_height);//X264_CSP_I422
+  x264_picture_alloc(&picture_in, X264_CSP_I420, parameters.i_width, parameters.i_height);
   picture_in.i_type = X264_TYPE_AUTO;
-  picture_in.img.i_csp = X264_CSP_YUYV;
+  picture_in.img.i_csp = X264_CSP_I420;
   // i have initilized my color space converter for BGR24 to YUV420 because my opencv video capture gives BGR24 image. You can initilize according to your input pixelFormat
-  convertContext = sws_getContext(parameters.i_width,parameters.i_height, AV_PIX_FMT_BGR24, parameters.i_width,parameters.i_height,AV_PIX_FMT_YUV420P, SWS_FAST_BILINEAR, NULL, NULL, NULL);
+  convertContext = sws_getContext(parameters.i_width,parameters.i_height, AV_PIX_FMT_YUYV422, parameters.i_width,parameters.i_height,AV_PIX_FMT_YUV420P, SWS_FAST_BILINEAR, NULL, NULL, NULL);
 }
 
 void x264Encoder::unInitilize()
@@ -92,59 +91,15 @@ void x264Encoder::unInitilize()
   sws_freeContext(convertContext);
 }
 
-void x264Encoder::encodeFrame(uint8_t * yuv_frame)
-{ 
-  if (yuv_frame[0] == '\0')
-  {
-    printf("zero frame");
-  }
-  //int srcStride = parameters.i_width * 3;
-  //sws_scale(convertContext, &(image.data), &srcStride, 0, parameters.i_height, picture_in.img.plane, picture_in.img.i_stride);
-	//int nNal = -1;
-  //int result = 0;
-	int i = 0;
-
-	uint8_t *y = picture_in.img.plane[0];
-	uint8_t *u = picture_in.img.plane[1];
-	uint8_t *v = picture_in.img.plane[2];
-
-	int is_y = 1, is_u = 1;
-	int y_index = 0, u_index = 0, v_index = 0;
-	int yuv422_length = 2 * parameters.i_width * parameters.i_height;
-
-	//序列为YU YV YU YV，一个yuv422帧的长度 width * height * 2 个字节
-	for (i = 0; i < yuv422_length; ++i) {
-		if (is_y) {
-			*(y + y_index) = *(yuv_frame + i);
-			++y_index;
-			is_y = 0;
-		} else {
-			if (is_u) {
-				*(u + u_index) = *(yuv_frame + i);
-				++u_index;
-				is_u = 0;
-			} else {
-				*(v + v_index) = *(yuv_frame + i);
-				++v_index;
-				is_u = 1;
-			}
-			is_y = 1;
-		}
-  }
-  // switch (type) {
-  //   case 0:
-  //     picture_in.i_type = X264_TYPE_P;
-  //     break;
-  //   case 1:
-  //     picture_in.i_type = X264_TYPE_IDR;
-  //     break;
-  //   case 2:
-  //     picture_in.i_type = X264_TYPE_I;
-  //     break;
-  //   default:
-  //     picture_in.i_type = X264_TYPE_AUTO;
-  //     break;
-  //   }
+void x264Encoder::encodeFrame(AVPicture &pPictureSrc)
+{
+  AVPicture pPictureDes;
+  avpicture_alloc(&pPictureDes, PIX_FMT_YUV420P, parameters.i_width,  parameters.i_height); 
+  sws_scale(convertContext, pPictureSrc.data,  pPictureSrc.linesize, 0, parameters.i_height, pPictureDes.data, pPictureDes.linesize);
+  picture_in.img.plane[0] = pPictureDes.data[0];  
+  picture_in.img.plane[1] = pPictureDes.data[1];  
+  picture_in.img.plane[2] = pPictureDes.data[2]; 
+  avpicture_free(&pPictureDes)
   x264_nal_t* nals ;
   int i_nals = 0;
   int frameSize = -1;
